@@ -5,6 +5,17 @@ All notable changes to EHS Link. Versions follow `major.minor.patch`.
 Aircraft profiles are versioned separately (`[Update] version` in `profiles.ini`) and reach
 pilots automatically at every sim start, so new or fixed aircraft don't need a new release.
 
+## Unreleased
+
+### Controllers
+- **EuroScope Plugin Bridge support:** when the bridge
+  ([EuroScopeBridge.dll](https://github.com/AlexisBalzano/Euroscope-Plugin-Bridge/releases),
+  loaded separately under *Other Settings → Plug-ins*) is present, EHS Link publishes each
+  aircraft's data for other plugins under the provider id `ehslink`: `sel_alt`, `sel_hdg`,
+  `sel_trk`, `sel_ias`, `sel_mach`, `sel_vs`, `baro`, `ias`, `mach`, `verified`
+  (`.esb schema ehslink`). Only fresh, position-checked data is published. The bridge is
+  optional: without it EHS Link works exactly as before.
+
 ## 0.2.1 — 2026-11-18
 
 **Who needs to update:** controllers (`EhsLink.dll`), and pilots who want to send aircraft

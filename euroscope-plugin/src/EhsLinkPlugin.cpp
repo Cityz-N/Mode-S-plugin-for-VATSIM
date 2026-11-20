@@ -16,6 +16,8 @@
 //              .ehs grace <seconds>      how long a mismatch must last before alerting (default 10)
 //              .ehs tol alt|hdg|spd|vs <value>
 //              .ehs brokers host[:port],host[:port]
+// Bridge:      with the EuroScope Plugin Bridge loaded, the data is also published for other
+//              plugins under the provider id "ehslink" (.esb schema ehslink).
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -25,6 +27,7 @@
 
 #include "EuroScopePlugIn.h"
 #include "EhsAlerts.h"
+#include "EhsBridge.h"
 #include "EhsCore.h"
 
 #include <cstdio>
@@ -258,6 +261,35 @@ public:
         }
         m_alerts.swap(next);
         UpdateList();
+        PublishToBridge();
+    }
+
+    // Shares what the EHS tags show with other plugins through the EuroScope Plugin Bridge:
+    // fresh, position-checked data only, cleared as soon as it no longer is. The bridge is
+    // optional: without it this returns at once.
+    void PublishToBridge()
+    {
+        std::string message;
+        bool ready = m_bridge.Tick(message);
+        if (!message.empty()) Show(message);
+        if (!ready) return;
+
+        std::set<std::string> live;
+        for (CRadarTarget rt = RadarTargetSelectFirst(); rt.IsValid(); rt = RadarTargetSelectNext(rt))
+        {
+            const char* rcs = rt.GetCallsign();
+            if (!rcs || !*rcs) continue;
+            std::string cs = rcs;
+            if (m_positionBad.count(cs)) continue;
+            auto data = Data(cs);
+            if (!data) continue;
+            m_bridge.Publish(*data);
+            live.insert(cs);
+        }
+        std::vector<std::string> gone;
+        for (auto& cs : m_bridge.Published())
+            if (!live.count(cs)) gone.push_back(cs);
+        for (auto& cs : gone) m_bridge.Clear(cs);
     }
 
     // ------------------------------------------------------------------ commands
@@ -283,10 +315,11 @@ public:
         if (sub.empty())
         {
             char buf[600];
-            _snprintf_s(buf, _TRUNCATE, "%s to %s, listening for %u aircraft in range; %u sending data, %u filed CODE/%s...; colours match %s, near %s, mismatch %s; notify %s; sound %s; grace %d s; "
+            _snprintf_s(buf, _TRUNCATE, "%s to %s%s, listening for %u aircraft in range; %u sending data, %u filed CODE/%s...; colours match %s, near %s, mismatch %s; notify %s; sound %s; grace %d s; "
                            "near if within: alt %d ft, hdg %d, spd %d kt, M%.2f, V/S %d fpm, QNH %d hPa / %.2f inHg.",
                       m_mqtt.IsConnected() ? "Connected" : "Not connected",
                       m_mqtt.IsConnected() ? m_mqtt.CurrentBroker().c_str() : ehs::FormatBrokerList(m_brokers).c_str(),
+                      m_bridge.IsAttached() ? " (shared on the plugin bridge)" : "",
                       static_cast<unsigned>(m_mqtt.SubscribedCount()),
                       static_cast<unsigned>(m_store.Count(kStaleMs)),
                       static_cast<unsigned>(CountFiled()), m_codePrefix.c_str(),
@@ -620,6 +653,7 @@ private:
     }
 
     ehs::MqttSubscriber m_mqtt;
+    ehs::Bridge m_bridge;   // unregisters in its destructor (only if the bridge is still loaded)
     ehs::Store m_store;
     std::vector<ehs::Broker> m_brokers;
     ehs::Tolerances m_tol;
