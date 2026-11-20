@@ -14,8 +14,8 @@ cd /d "%~dp0"
 if not exist build mkdir build
 set "CFLAGS=/nologo /std:c++17 /EHsc /O2 /MT /W3 /D_CRT_SECURE_NO_WARNINGS /utf-8"
 
-cl %CFLAGS% /LD /I"%ES_SDK%" /Fobuild\ /Febuild\EhsLink.dll ^
-   src\EhsLinkPlugin.cpp src\EhsCore.cpp src\EhsAlerts.cpp ^
+cl %CFLAGS% /LD /I"%ES_SDK%" /Iinclude /Fobuild\ /Febuild\EhsLink.dll ^
+   src\EhsLinkPlugin.cpp src\EhsCore.cpp src\EhsAlerts.cpp src\EhsBridge.cpp ^
    /link "%ES_SDK%\EuroScopePlugInDll.lib" ws2_32.lib winmm.lib user32.lib || exit /b 1
 
 cl %CFLAGS% /Fobuild\ /Febuild\ehs_test.exe test\test_main.cpp src\EhsCore.cpp src\EhsAlerts.cpp ^
