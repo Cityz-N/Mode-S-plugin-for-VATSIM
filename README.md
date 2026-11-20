@@ -44,19 +44,20 @@ requests (see the comments at the top of `profiles.ini`).
 | Aircraft | Status | MSFS 2020 | MSFS 2024 |
 |---|---|:-:|:-:|
 | A320neo (Asobo) | Verified | ✓ |  |
-| A320neo V2 / A321neo / A330 (iniBuilds, MSFS 2024 defaults) | Verified |  | ✓ |
+| A320neo V2 / A321neo / A330 / Beluga XL (iniBuilds, MSFS 2024 defaults) | Verified |  | ✓ |
 | A32NX (FlyByWire) | Verified | ✓ | ✓ |
-| A339 (Headwind) | Verified | ✓ |  |
+| A339 (Headwind) | Verified | ✓ | ✓ |
 | A346 (Aerosoft) | Verified | ✓ |  |
 | A350 (iniBuilds) | Verified | ✓ | ✓ |
-| A380X (FlyByWire) | Verified | ✓ |  |
+| A380X (FlyByWire) | Verified | ✓ | ✓ |
 | ATR 42/72-600 | Verified | ✓ | ✓ |
 | Bluebird 757 | Verified | ✓ | ✓ |
 | Boeing 737 MAX (Asobo) | Verified |  | ✓ |
 | Boeing 747-8 | Verified |  | ✓ |
 | Boeing 787 (HorizonSim / Asobo / Kuro) | Verified | ✓ | ✓ |
 | Citation CJ4 | Verified |  | ✓ |
-| Citation X (FlightFX) | Verified | ✓ |  |
+| Citation Longitude | Verified |  | ✓ |
+| Citation X (FlightFX) | Verified | ✓ | ✓ |
 | Fenix A319/A320/A321 | Verified |  | ✓ |
 | FSLabs A32x | Verified |  | ✓ |
 | FSS E-Jets | Verified |  | ✓ |
@@ -64,9 +65,9 @@ requests (see the comments at the top of `profiles.ini`).
 | PMDG 737 | Verified | ✓ |  |
 | PMDG 777 | Verified | ✓ | ✓ |
 | TFDi MD-11 | Verified | ✓ |  |
+| Vision Jet (Microsoft) | Verified |  | ✓ |
 | Aerosoft CRJ | Draft |  |  |
 | Boeing 787 | Draft |  |  |
-| Citation Longitude | Draft |  |  |
 | iFly 737 MAX | Draft |  |  |
 | iniBuilds A300 | Draft |  |  |
 | iniBuilds Airbus family | Draft |  |  |
@@ -78,7 +79,7 @@ requests (see the comments at the top of `profiles.ini`).
 | LVFR A318/A319 | Draft |  |  |
 | Synaptic A22X | Draft |  |  |
 
-21 verified, 13 draft. A tick means checked in that simulator's cockpit.
+23 verified, 12 draft. A tick means checked in that simulator's cockpit.
 <!-- aircraft-list:end -->
 
 The [website](https://cityz-n.github.io/Mode-S-plugin-for-VATSIM/#aircraft) always shows the

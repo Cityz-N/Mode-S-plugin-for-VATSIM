@@ -43,10 +43,12 @@ int main(int argc, char** argv)
         CHECK(FindProfile(s, "some other 787-9 mod|x")->name == "Boeing 787 (draft)");
         CHECK(FindProfile(s, "lvfr airbus a319 delta|c:\\...\\community\\lvfr-airbus-a319-ceo\\x")->name == "LVFR A318/A319 (draft)");
         CHECK(FindProfile(s, "a330-300 inibuilds|c:\\...\\community\\inibuilds-aircraft-a330-300\\x")->name == "iniBuilds Airbus family (draft)");
+        CHECK(FindProfile(s, "a330-belugaxl|c:\\...\\streamedpackages\\fs24-microsoft-aircraft-belugaxl\\content\\simobjects\\airplanes\\microsoft-belugaxl\\x")->name == "A320neo V2 / A321neo / A330 / Beluga XL (iniBuilds, MSFS 2024 defaults)");
+        CHECK(FindProfile(s, "microsoft vision jet executive seating|c:\\...\\fs24-microsoft-aircraft-sf50\\content\\simobjects\\airplanes\\microsoft_sf50\\x")->name == "Vision Jet (Microsoft)");
         CHECK(FindProfile(s, "a310-300|c:\\...\\community\\inibuilds-aircraft-a310\\x")->name == "iniBuilds A310");     // not the family
         CHECK(FindProfile(s, "airbus a350-900 afr la28|c:\\...\\community\\inibuilds-aircraft-a350\\x")->name == "A350 (iniBuilds)");   // verified wins
         CHECK(FindProfile(s, "fslabs a321neo|c:\\...\\community\\fsl-aircraft-a321\\x")->name == "FSLabs A32x");
-        CHECK(FindProfile(s, "cessna citation longitude asobo|x")->name == "Citation Longitude (draft)");
+        CHECK(FindProfile(s, "cessna citation longitude asobo|x")->name == "Citation Longitude");
         CHECK(FindProfile(s, "fokker f28 fellowship|c:\\...\\community\\justflight-aircraft-f28\\x")->name == "Just Flight F28 (draft)");
         CHECK(FindProfile(s, "learjet 35a flysimware|x")->name == "Learjet 35A (draft)");
         CHECK(FindProfile(s, "tbm 930 asobo|x")->alt == "(A:AUTOPILOT ALTITUDE LOCK VAR:1, feet)");   // fallback reads slot :1
