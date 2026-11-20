@@ -17,7 +17,7 @@ namespace EhsLink
 {
     public class EhsLinkPlugin : IPlugin
     {
-        public const string Version = "0.2.1";
+        public const string Version = "0.2.2";
         public const string TopicRoot = "ehslink/v1/";
 
         private IBroker _broker;
